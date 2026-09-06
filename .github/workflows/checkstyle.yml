@@ -1,1 +1,23 @@
+name: Checkstyle Compliance
 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  checkstyle:
+    name: Run Code Style Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Checkstyle
+        uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Points to the path of your config file
+          checkstyle_config: config/checkstyle/checkstyle.xml 
+          level: error
